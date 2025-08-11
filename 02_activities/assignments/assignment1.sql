@@ -20,17 +20,17 @@ LIMIT 10;
 --WHERE
 /* 1. Write a query that returns all customer purchases of product IDs 4 and 9. */
 
-SELECT * 
-FROM customer_purchases
-WHERE product_id IN (4, 9);
-
 -- option 1
 
-
+SELECT *
+FROM customer_purchases
+WHERE product_id = 4 OR product_id = 9;
 
 -- option 2
 
-
+SELECT * 
+FROM customer_purchases
+WHERE product_id IN (4, 9);
 
 
 /*2. Write a query that returns all customer purchases and a new calculated column 'price' (quantity * cost_to_customer_per_qty), 
@@ -88,9 +88,9 @@ FROM product;
 vendor_id field they both have in common, and sorts the result by vendor_name, then market_date. */
 
 SELECT *
-FROM vendor v
-INNER JOIN vendor_booth_assignments vba ON v.vendor_id = vba.vendor_id
-ORDER BY v.vendor_name, vba.market_date;
+FROM vendor vd
+INNER JOIN vendor_booth_assignments vba ON vd.vendor_id = vba.vendor_id
+ORDER BY vd.vendor_name, vba.market_date;
 
 
 /* SECTION 3 */
@@ -135,6 +135,18 @@ When inserting the new vendor, you need to appropriately align the columns to be
 -> To insert the new row use VALUES, specifying the value you want for each column:
 VALUES(col1,col2,col3,col4,col5) 
 */
+
+
+-- Create temp table
+CREATE TEMP TABLE new_vendor AS 
+SELECT * FROM vendor;
+
+-- Insert new vendor
+INSERT INTO new_vendor 
+VALUES (10, 'Thomass Superfood Store', 'Fresh Focused', 'Thomas',  'Rosenthal');
+
+-- To verify the insertion worked:
+SELECT * FROM temp.new_vendor WHERE vendor_id = 10;
 
 
 
