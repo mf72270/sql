@@ -1,4 +1,28 @@
 /* ASSIGNMENT 2 */
+/* SECTION 1 */
+
+/*
+--Prompt 3- a logical model for a small bookstore
+The store wants to keep customer addresses. Propose two architectures for the CUSTOMER_ADDRESS table, one that will retain changes, and another that will overwrite. Which is type 1, which is type 2?
+HINT: search type 1 vs type 2 slowly changing dimensions.*/
+/*
+
+/*Answer:
+For the bookstore's customer address system, we can propose two different ways to set it up, depending on whether we want to keep a history of changes or not.
+
+The Simple Overwrite Method (Type 1):
+
+ We just have a single CUSTOMER_ADDRESS table, or more commonly, we put the address columns right in the main CUSTOMER table. 
+ When a customer moves and gives us a new address, we simply overwrite the old one. It's clean and efficient. 
+ The downside is that we completely lose the historical record of where they lived before. This is called a Type 1 
+
+The Historical Tracking Method (Type 2):
+
+ This method is for when we need to keep a full history of every change. Instead of one address per customer, we create a separate CUSTOMER_ADDRESS table that can hold multiple addresses for each person. 
+ Each address record has dates showing when it was active (start_date, end_date) and a flag marking which one is current (is_current). When a customer moves, we end-date the old address and add a new record for the new one. 
+ This lets us see exactly where a customer lived when they placed each past order. This is called a Type 2 */
+
+
 /* SECTION 2 */
 
 -- COALESCE
@@ -37,7 +61,7 @@ SELECT
     product_name || ', ' || COALESCE(product_size, '') || ' (' || COALESCE(product_qty_type, 'unit') || ')'
 FROM product;
  
---========================================
+
 
 --Windowed Functions
 /* 1. Write a query that selects from the customer_purchases table and numbers each customer’s  
